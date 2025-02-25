@@ -419,7 +419,7 @@ function App() {
         </form>
       </div>
 
-      <div
+      {/* <div
         className="d-flex justify-content-center align-items-center"
         style={{
           position: "fixed",
@@ -429,7 +429,7 @@ function App() {
         }}
       >
         <ReactLoading type={'spin'} color={'#000'} height={'4rem'} width={'4rem'} />
-      </div>
+      </div> */}
 
     </div>
   );
