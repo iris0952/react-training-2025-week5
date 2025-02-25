@@ -4,6 +4,7 @@ import { Modal } from "bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { useForm } from "react-hook-form";
+import ReactLoading from 'react-loading';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -108,9 +109,9 @@ function App() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
-  } = useForm()
-  console.log('email');
+    formState: { errors },
+    reset
+  } = useForm();
   
   const onSubmit = handleSubmit((data) => {
     // console.log(data);
@@ -121,16 +122,20 @@ function App() {
         message
       }
     }
-    checkOut(userInfo);
+    alert('已建立訂單');
+    checkout(userInfo);
+    getCart();
   })
 
-  const checkOut = async() => {
+  const checkout = async(data) => {
     try {
-      axios.post(`${BASE_URL}/v2/api/${API_PATH}/order`, data)
+      await axios.post(`${BASE_URL}/v2/api/${API_PATH}/order`, data);
+      reset();
     } catch (error) {
       alert('結帳失敗！')
     }
   }
+
 
   return (
     <div className="container">
@@ -410,9 +415,22 @@ function App() {
             <button type="submit" className="btn btn-danger">
               送出訂單
             </button>
-          </div>
+          </div> 
         </form>
       </div>
+
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{
+          position: "fixed",
+          inset: 0,
+          backgroundColor: "rgba(255,255,255,0.3)",
+          zIndex: 999,
+        }}
+      >
+        <ReactLoading type={'spin'} color={'#000'} height={'4rem'} width={'4rem'} />
+      </div>
+
     </div>
   );
 }
