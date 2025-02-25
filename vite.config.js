@@ -5,4 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: process.env.NODE_ENV === 'production' ? '/react-training-2025-week5/' : '/',
   plugins: [react()],
+  esbuild: {
+    jsx: "automatic",
+  }
 })
